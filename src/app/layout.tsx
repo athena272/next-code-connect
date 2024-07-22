@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Aside from "@/components/Aside";
 import './globals.scss'
 
 export const metadata: Metadata = {
@@ -13,7 +14,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-       <body>{children}</body>
+      <body>
+        <div className="app-container">
+          <Aside />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

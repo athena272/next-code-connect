@@ -4,16 +4,24 @@ import logger from '@/logger'
 import styles from './page.module.scss'
 
 async function getAllPosts() {
-  const response = await fetch('https://athena272.github.io/next-code-connect/posts.json')
-  if (!response.ok) {
-    logger.error('Ops, alguma coisa correu mal')
+  try {
+    const response = await fetch('https://athena272.github.io/next-code-connect/posts.json')
+    if (!response.ok) {
+      throw new Error('Falha na rede');
+    }
+    
+    logger.info('Posts obtidos com sucesso')
+    const { posts } = await response.json();
+    return posts
+
+  } catch (error: any) {
+    logger.error('Ops, algo correu mal: ' + error.message)
     return []
   }
-  logger.info('Posts obtidos com sucesso')
 
-  const { posts } = await response.json();
-  
-  return posts
+
+
+
 }
 
 export default async function Home() {

@@ -1,9 +1,9 @@
 import CardPost from "@/components/CardPost";
 import { Post } from "@/types/Post";
-import { posts as POSTS } from './posts.json'
+import postsData from './posts.json'
 
 export default function Home() {
-  const posts: Post[] = POSTS
+  const posts: Post[] = postsData.posts
 
   return (
     <main>

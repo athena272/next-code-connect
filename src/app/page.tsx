@@ -1,13 +1,29 @@
 import CardPost from "@/components/CardPost";
 import { Post } from "@/types/Post";
-import postsData from './posts.json'
 
-export default function Home() {
-  const posts: Post[] = postsData.posts
+async function getAllPosts() {
+  const response = await fetch('https://athena272.github.io/next-code-connect/posts.json')
+  if (!response.ok) {
+    console.log('Ops, alguma coisa correu mal')
+  }
+  const { posts } = await response.json();
+  
+  return posts
+}
+
+export default async function Home() {
+  const posts: Post[] = await getAllPosts()
 
   return (
     <main>
-      <CardPost post={posts[0]} />
+      {
+        posts.map(post => (
+          <CardPost
+            key={post.id}
+            post={post}
+          />
+        ))
+      }
     </main>
   );
 }

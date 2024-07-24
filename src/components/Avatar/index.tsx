@@ -1,4 +1,5 @@
 import Image from "next/image"
+import styles from './Avatar.module.scss'
 
 type AvatarProps = {
     name: string,
@@ -7,7 +8,7 @@ type AvatarProps = {
 
 export default function Avatar({ name, imageSrc }: AvatarProps) {
     return (
-        <ul>
+        <ul className={styles.avatar}>
             <li>
                 <Image
                     src={imageSrc}

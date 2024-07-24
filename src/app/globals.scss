@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background: linear-gradient(180deg, #0E1112 0%, #00090E 100%);
     margin: 0;
@@ -5,7 +9,7 @@ body {
 }
 
 .app-container {
-    width: 1200px; 
+    width: 1200px;
     max-width: 90%;
     margin: 56px auto;
     display: flex;

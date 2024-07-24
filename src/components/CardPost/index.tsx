@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Avatar from "../Avatar"
 import { Post } from "@/types/Post"
+import styles from './CardPost.module.scss'
 
 type CardPostProps = {
     post: Post,
@@ -8,8 +9,8 @@ type CardPostProps = {
 
 export default function CardPost({ post }: CardPostProps) {
     return (
-        <article>
-            <header>
+        <article className={styles.card}>
+            <header className={styles.header}>
                 <figure>
                     <Image
                         src={post.cover}
@@ -19,11 +20,11 @@ export default function CardPost({ post }: CardPostProps) {
                     />
                 </figure>
             </header>
-            <section>
+            <section className={styles.body}>
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
             </section>
-            <footer>
+            <footer className={styles.footer}>
                 <Avatar
                     imageSrc={post.author.avatar}
                     name={post.author.name}

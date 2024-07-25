@@ -1,4 +1,4 @@
-import logger from '@/logger'
+// import logger from '@/logger'
 
 export async function getAllPosts() {
     try {
@@ -7,11 +7,11 @@ export async function getAllPosts() {
             throw new Error('Falha na rede');
         }
 
-        logger.info('Posts obtidos com sucesso')
+        console.log('Posts obtidos com sucesso')
         const { posts } = await response.json();
         return posts
     } catch (error: any) {
-        logger.error('Ops, algo correu mal: ' + error.message)
+        console.log('Ops, algo correu mal: ' + error.message)
         return []
     }
 }

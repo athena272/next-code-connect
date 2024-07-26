@@ -1,5 +1,7 @@
 // import logger from '@/logger'
 import { Post } from "@/types/Post";
+import { remark } from 'remark';
+import html from 'remark-html';
 
 type PostResponse = {
     posts: Post[];
@@ -32,6 +34,14 @@ export async function getPostsBySlug(slug: string) {
         }
 
         console.log('Post obtido com sucesso');
+
+        // Use remark to convert markdown into HTML string
+        const processedContent = await remark()
+            .use(html)
+            .process(post.markdown);
+        const contentHtml = processedContent.toString();
+        post.markdown = contentHtml
+
         return post;
     } catch (error: any) {
         console.log('Ops, algo correu mal: ' + error.message);

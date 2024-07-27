@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { Prompt } from 'next/font/google'
 import type { Metadata } from "next";
 import Aside from "@/components/Aside";
@@ -28,6 +29,7 @@ export default function RootLayout({
           </div>
           <div className='main-content'>
             {children}
+            <Analytics />
           </div>
         </div>
       </body>

@@ -5,3 +5,7 @@ json-server posts.json -p 3042
 pnpm install winston
 
 pnpm install remark remark-hmtl
+
+pnpm install prisma --save-dev
+
+pnpm dlx prisma init

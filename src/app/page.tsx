@@ -6,6 +6,7 @@ import { Post } from "@/types/Post";
 import { getAllPosts } from "@/helper/functions";
 import styles from './page.module.scss'
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const POSTS_PER_PAGE = 4
 
@@ -32,10 +33,12 @@ export default function Home() {
     <main className={styles.grid}>
       {
         currentPosts.map(post => (
-          <CardPost
-            key={post.id}
-            post={post}
-          />
+          <Link href={`/posts/${post.slug}`} passHref className={styles.link}>
+            <CardPost
+              key={post.id}
+              post={post}
+            />
+          </Link>
         ))
       }
       <Pagination

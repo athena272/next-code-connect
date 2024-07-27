@@ -1,7 +1,6 @@
-import Image from 'next/image';
-import Avatar from '@/components/Avatar';
 import { getAllPosts, getPostsBySlug } from '@/helper/functions';
 import styles from './PagePost.module.scss'
+import CardPost from '@/components/CardPost';
 
 type PagePostProps = {
     params: {
@@ -27,29 +26,12 @@ export default async function PagePost({ params }: PagePostProps) {
 
     return (
         <>
-            <article className={styles.card}>
-                <header className={styles.header}>
-                    <figure>
-                        <Image
-                            src={post.cover}
-                            alt={`Capa do post de titulo: ${post.title}`}
-                            width={438}
-                            height={133}
-                        />
-                    </figure>
-                </header>
-                <section className={styles.body}>
-                    <h2>{post.title}</h2>
-                    <p>{post.body}</p>
-                </section>
-                <footer className={styles.footer}>
-                    <Avatar
-                        imageSrc={post.author.avatar}
-                        name={post.author.name}
-                    />
-                </footer>
-            </article>
-            <div style={{ padding: 16, background: 'white' }} dangerouslySetInnerHTML={{ __html: post.markdown }} />
+            <CardPost post={post} highlight />
+            <h3 className={styles.subtitle}>Código:</h3>
+
+            <div className={styles.code}>
+                <div dangerouslySetInnerHTML={{ __html: post.markdown }} />
+            </div>
         </>
     )
 }

@@ -15,12 +15,24 @@ body {
     display: flex;
     gap: 28px;
     min-height: 100vh;
-    
-    @media screen and (max-width: 768px) {
+
+    @media screen and (max-width: 992px) {
         flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 40px;
+        margin: 30px auto 56px;
+    }
+
+    @media screen and (max-width: 576px) {
+        padding: 0 15px;
     }
 }
 
 .main-content {
     flex-grow: 1;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    }
 }

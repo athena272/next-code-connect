@@ -25,7 +25,7 @@ As principais técnicas e tecnologias abordadas são:
 - `remark`: Biblioteca para processamento de Markdown em HTML.
 - `winston`: Logging avançado com diferentes níveis e transportes.
 - `React Components`: Desenvolvimento de componentes reutilizáveis.
-- `CSS Modules`: Estilização modular e escopada.
+- `SCSS Modules`: Estilização modular e escopada.
 - `Client-Side Navigation`: Navegação eficiente entre páginas com Next.js.
 
 ## 🎯 Desafios do Curso

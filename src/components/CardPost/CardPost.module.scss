@@ -1,23 +1,39 @@
-.link {
-    text-decoration: none;
-    cursor: pointer;
-}
-
 .card {
-    width: 486px;
     border-radius: 8px;
     background: #171D1F;
+
+    @media screen and (max-width: 992px) {
+        width: 100% !important; 
+    }
 }
 
 .header {
     border-radius: 8px 8px 0px 0px;
-    background: #888;
+    background: transparent;
     padding: 24px;
 
     figure {
+        height: 300px;
         margin: 0;
+        position: relative;
     }
 
+    @media screen and (max-width: 576px) {
+
+        figure {
+            height: 133px !important;
+
+            img {
+                object-fit: none !important;
+            }
+        }
+    }
+}
+
+.header__home {
+    figure {
+        height: 133px;
+    }
 }
 
 .body {

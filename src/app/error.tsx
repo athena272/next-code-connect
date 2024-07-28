@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Heading from '@/components/Heading'
 import styles from './error/error.module.scss'
-import banner from './error/500.png'
+import banner from './error/404.png'
 import { useEffect } from 'react'
 
 export default function Error({

@@ -8,15 +8,6 @@ type PagePostProps = {
     }
 }
 
-export async function generateStaticParams() {
-    const posts = await getAllPosts()
-    const slugs = posts.map(post => ({
-        slug: post.slug
-    }))
-
-    return slugs
-}
-
 export default async function PagePost({ params }: PagePostProps) {
     const post = await getPostsBySlug(params.slug)
 

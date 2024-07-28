@@ -1,40 +1,81 @@
-// import logger from '@/logger'
+import logger from '@/logger'
 import { Post } from "@/types/Post";
 import { remark } from 'remark';
 import html from 'remark-html';
+import db from '../../prisma/db'
+import { redirect } from 'next/navigation';
+import { Prisma } from '@prisma/client';
 
-type PostResponse = {
-    posts: Post[];
+type GetPostsResponse = {
+    data: Post[]
+    prev?: number | null
+    next?: number | null
 }
 
-export async function getAllPosts(): Promise<Post[]> {
+
+export async function getAllPosts(page: number, searchTerm: string): Promise<GetPostsResponse> {
     try {
-        const response = await fetch('https://athena272.github.io/next-code-connect/posts.json')
-        if (!response.ok) {
-            throw new Error('Falha na rede');
+        const where: Prisma.PostWhereInput = {}
+
+        if (searchTerm) {
+            where.title = {
+                contains: searchTerm,
+                mode: 'insensitive'
+            }
         }
 
-        console.log('Posts obtidos com sucesso')
-        const { posts }: PostResponse = await response.json();
-        return posts
-    } catch (error: any) {
-        console.log('Ops, algo correu mal: ' + error.message)
-        return []
+        const PER_PAGE = 4
+        const skip = (page - 1) * PER_PAGE
+        const totalItems = await db.post.count({ where })
+        const totalPages = Math.ceil(totalItems / PER_PAGE)
+        //prev and next pages
+        const prevPage = page > 1 ? page - 1 : null
+        const nextPage = page < totalPages ? page + 1 : null
+
+        const posts = await db.post.findMany({
+            take: PER_PAGE,
+            skip,
+            where,
+            orderBy: {
+                createdAt: 'desc'
+            },
+            include: {
+                author: true
+            }
+        })
+
+        if (!posts || posts.length === 0) {
+            logger.error(`Posts com o titulo ${searchTerm} não foram encontrados`)
+            throw new Error(`Posts com o titulo ${searchTerm} não foram encontrados`)
+        }
+
+        return {
+            data: posts,
+            prev: prevPage,
+            next: nextPage
+        }
+    } catch (error) {
+        logger.error('Falha ao obter posts', { error })
     }
+
+    redirect('/not-found')
 }
 
-export async function getPostsBySlug(slug: string) {
+export async function getPostsBySlug(slug: string): Promise<Post> {
     try {
-        const posts = await getAllPosts();
-        const post = posts.find((post) => post.slug === slug);
+        const post = await db.post.findFirst({
+            where: {
+                slug
+            },
+            include: {
+                author: true
+            }
+        })
 
         if (!post) {
-            console.log('Post não encontrado');
-            return null;
+            logger.error(`Post com o slug ${slug} não foi encontrado`)
+            throw new Error(`Post com o slug ${slug} não foi encontrado`)
         }
-
-        console.log('Post obtido com sucesso');
-
         // Use remark to convert markdown into HTML string
         const processedContent = await remark()
             .use(html)
@@ -44,7 +85,11 @@ export async function getPostsBySlug(slug: string) {
 
         return post;
     } catch (error: any) {
-        console.log('Ops, algo correu mal: ' + error.message);
-        return null;
+        logger.error('Falha ao obter o post com o slug: ', {
+            slug,
+            error
+        })
     }
+
+    redirect('/not-found')
 }

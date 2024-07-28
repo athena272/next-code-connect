@@ -5,3 +5,15 @@ json-server posts.json -p 3042
 pnpm install winston
 
 pnpm install remark remark-hmtl
+
+pnpm install prisma --save-dev
+
+pnpm dlx prisma migrate dev --name init
+
+pnpm dlx prisma generate
+
+pnpm install -D typescript ts-node @types/node
+
+pnpm install -g ts-node
+
+pnpm dlx prisma db seed

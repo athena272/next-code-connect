@@ -2,10 +2,11 @@ import { Analytics } from '@vercel/analytics/react';
 import { Prompt } from 'next/font/google'
 import type { Metadata } from "next";
 import Aside from "@/components/Aside";
+import SearchForm from '@/components/SearchForm';
 import './globals.scss'
 
 const prompt = Prompt({
-  weight: ['400', '600'],
+  weight: ['400', '500', '600'],
   subsets: ['latin'],
   display: 'swap',
 })
@@ -28,6 +29,7 @@ export default function RootLayout({
             <Aside />
           </div>
           <div className='main-content'>
+            <SearchForm />
             {children}
             <Analytics />
           </div>

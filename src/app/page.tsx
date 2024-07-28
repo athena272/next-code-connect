@@ -1,38 +1,25 @@
-'use client';
-
 import CardPost from "@/components/CardPost";
-import Pagination from "@/components/Pagination";
-import { Post } from "@/types/Post";
 import { getAllPosts } from "@/helper/functions";
 import styles from './page.module.scss'
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
-const POSTS_PER_PAGE = 4
+type HomeProps = {
+  searchParams: {
+    page: string
+    q: string
+  }
+}
 
-export default function Home() {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const fetchPosts = async () => {
-    const allPosts = await getAllPosts();
-    setPosts(allPosts);
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const currentPosts = posts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
+export default async function Home({ searchParams }: HomeProps) {
+  // console.log("🚀 ~ Home ~ searchParams:", searchParams)
+  const currentPage = parseInt(searchParams?.page) || 1
+  const searchTerm = searchParams?.q
+  const { data: posts, prev, next } = await getAllPosts(currentPage, searchTerm)
 
   return (
     <main className={styles.grid}>
       {
-        currentPosts.map(post => (
+        posts.map(post => (
           <Link href={`/posts/${post.slug}`} passHref className={styles.link}>
             <CardPost
               key={post.id}
@@ -41,12 +28,26 @@ export default function Home() {
           </Link>
         ))
       }
-      <Pagination
-        totalPosts={posts.length}
-        postsPerPage={POSTS_PER_PAGE}
-        currentPage={currentPage}
-        onPageChange={handlePageChange}
-      />
+      <div className={styles.links}>
+        {prev && <Link passHref href={{
+          pathname: '/',
+          query: {
+            page: prev,
+            q: searchTerm
+          }
+        }}>
+          Página anterior
+        </Link>}
+        {next && <Link passHref href={{
+          pathname: '/',
+          query: {
+            page: next,
+            q: searchTerm
+          }
+        }}>
+          Próxima página
+        </Link>}
+      </div>
     </main>
   );
 }

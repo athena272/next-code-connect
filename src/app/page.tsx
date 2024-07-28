@@ -3,10 +3,16 @@ import { getAllPosts } from "@/helper/functions";
 import styles from './page.module.scss'
 import Link from "next/link";
 
-export default async function Home() {
-  // console.log("🚀 ~ Home ~ props:", props)
-  // const currentPage = props.searchParams?.page || 1
-  const { data: posts, prev, next } = await getAllPosts()
+type HomeProps = {
+  searchParams: {
+    pages: string
+  }
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  console.log("🚀 ~ Home ~ searchParams:", searchParams)
+  const currentPage = parseInt(searchParams?.pages) || 1
+  const { data: posts, prev, next } = await getAllPosts(currentPage)
 
   return (
     <main className={styles.grid}>
@@ -20,6 +26,10 @@ export default async function Home() {
           </Link>
         ))
       }
+      <div className={styles.links}>
+        {prev && <Link href={`/?pages=${prev}`}>Página anterior</Link>}
+        {next && <Link href={`/?pages=${next}`}>Próxima página </Link>}
+      </div>
     </main>
   );
 }

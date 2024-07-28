@@ -5,14 +5,16 @@ import Link from "next/link";
 
 type HomeProps = {
   searchParams: {
-    pages: string
+    page: string
+    q: string
   }
 }
 
 export default async function Home({ searchParams }: HomeProps) {
   // console.log("🚀 ~ Home ~ searchParams:", searchParams)
-  const currentPage = parseInt(searchParams?.pages) || 1
-  const { data: posts, prev, next } = await getAllPosts(currentPage)
+  const currentPage = parseInt(searchParams?.page) || 1
+  const searchTerm = searchParams?.q
+  const { data: posts, prev, next } = await getAllPosts(currentPage, searchTerm)
 
   return (
     <main className={styles.grid}>
@@ -27,8 +29,24 @@ export default async function Home({ searchParams }: HomeProps) {
         ))
       }
       <div className={styles.links}>
-        {prev && <Link href={`/?pages=${prev}`}>Página anterior</Link>}
-        {next && <Link href={`/?pages=${next}`}>Próxima página </Link>}
+        {prev && <Link passHref href={{
+          pathname: '/',
+          query: {
+            page: prev,
+            q: searchTerm
+          }
+        }}>
+          Página anterior
+        </Link>}
+        {next && <Link passHref href={{
+          pathname: '/',
+          query: {
+            page: next,
+            q: searchTerm
+          }
+        }}>
+          Próxima página
+        </Link>}
       </div>
     </main>
   );

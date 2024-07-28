@@ -10,7 +10,7 @@ type HomeProps = {
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  console.log("🚀 ~ Home ~ searchParams:", searchParams)
+  // console.log("🚀 ~ Home ~ searchParams:", searchParams)
   const currentPage = parseInt(searchParams?.pages) || 1
   const { data: posts, prev, next } = await getAllPosts(currentPage)
 

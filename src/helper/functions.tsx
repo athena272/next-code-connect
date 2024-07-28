@@ -12,7 +12,13 @@ type GetPostsResponse = {
 
 export async function getAllPosts(): Promise<GetPostsResponse> {
     try {
+        const PER_PAGE = 4
+
         const posts = await db.post.findMany({
+            take: PER_PAGE,
+            orderBy: {
+                createdAt: 'desc'
+            },
             include: {
                 author: true
             }

@@ -76,5 +76,6 @@ export async function getPostsBySlug(slug: string): Promise<Post> {
             error
         })
     }
+    
     redirect('/not-found')
 }

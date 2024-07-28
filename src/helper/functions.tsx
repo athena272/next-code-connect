@@ -10,12 +10,19 @@ type GetPostsResponse = {
     next?: number | null
 }
 
-export async function getAllPosts(): Promise<GetPostsResponse> {
+export async function getAllPosts(page: number): Promise<GetPostsResponse> {
     try {
         const PER_PAGE = 4
+        const skip = (page - 1) * PER_PAGE
+        const totalItems = await db.post.count()
+        const totalPages = Math.ceil(totalItems / PER_PAGE)
+        //prev and next pages
+        const prevPage = page > 1 ? page - 1 : null
+        const nextPage = page < totalPages ? page + 1 : null
 
         const posts = await db.post.findMany({
             take: PER_PAGE,
+            skip,
             orderBy: {
                 createdAt: 'desc'
             },
@@ -26,8 +33,8 @@ export async function getAllPosts(): Promise<GetPostsResponse> {
 
         return {
             data: posts,
-            prev: null,
-            next: null
+            prev: prevPage,
+            next: nextPage
         }
     } catch (error) {
         logger.error('Falha ao obter posts', { error })
@@ -41,7 +48,7 @@ export async function getAllPosts(): Promise<GetPostsResponse> {
 
 export async function getPostsBySlug(slug: string) {
     try {
-        const posts = await getAllPosts();
+        const posts = await getAllPosts(0);
         const post = posts.data.find(post => post.slug === slug)
 
         if (!post) {

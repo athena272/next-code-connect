@@ -1,32 +1,42 @@
-// import logger from '@/logger'
+import logger from '@/logger'
 import { Post } from "@/types/Post";
 import { remark } from 'remark';
 import html from 'remark-html';
+import db from '../../prisma/db'
 
-type PostResponse = {
-    posts: Post[];
+type GetPostsResponse = {
+    data: Post[]
+    prev?: number | null
+    next?: number | null
 }
 
-export async function getAllPosts(): Promise<Post[]> {
+export async function getAllPosts(): Promise<GetPostsResponse> {
     try {
-        const response = await fetch('https://athena272.github.io/next-code-connect/posts.json')
-        if (!response.ok) {
-            throw new Error('Falha na rede');
-        }
+        const posts = await db.post.findMany({
+            include: {
+                author: true
+            }
+        })
 
-        console.log('Posts obtidos com sucesso')
-        const { posts }: PostResponse = await response.json();
-        return posts
-    } catch (error: any) {
-        console.log('Ops, algo correu mal: ' + error.message)
-        return []
+        return {
+            data: posts,
+            prev: null,
+            next: null
+        }
+    } catch (error) {
+        logger.error('Falha ao obter posts', { error })
+        return {
+            data: [],
+            prev: null,
+            next: null
+        }
     }
 }
 
 export async function getPostsBySlug(slug: string) {
     try {
         const posts = await getAllPosts();
-        const post = posts.find((post) => post.slug === slug);
+        const post = posts.data.find(post => post.slug === slug)
 
         if (!post) {
             console.log('Post não encontrado');

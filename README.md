@@ -1,3 +1,5 @@
+## Link de [acesso](https://next-code-connect.vercel.app/)
+
 ![](thumbnail.png)
 
 ![](https://img.shields.io/github/license/alura-cursos/android-com-kotlin-personalizando-ui)
@@ -48,3 +50,5 @@ Após baixar o projeto, você pode abrir com seu editor de código preferido. Si
 ## 📚 Mais Informações do Curso
 
 Interessado em aprofundar seus conhecimentos em Next.js e SSR? [Acesse o curso]() que desenvolve este projeto desde o início!
+
+## Link de [acesso](https://next-code-connect.vercel.app/)

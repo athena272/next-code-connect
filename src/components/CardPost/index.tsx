@@ -2,13 +2,20 @@ import Image from "next/image"
 import Avatar from "../Avatar"
 import { Post } from "@/types/Post"
 import styles from './CardPost.module.scss'
+import Link from "next/link"
+import incrementThumbsUp from "@/actions"
+import ThumbsUpButton from "./ThumbsUpButton"
 
 type CardPostProps = {
     post: Post,
-    highlight?: boolean
+    highlight?: boolean,
+    showBtnDetails?: boolean,
 }
 
-export default function CardPost({ post, highlight }: CardPostProps) {
+export default function CardPost({ post, highlight, showBtnDetails }: CardPostProps) {
+
+    const submitThumbsUp = incrementThumbsUp.bind(null, post)
+
     return (
         <article className={styles.card} style={{ width: highlight ? 993 : 486 }}>
             <header className={`${styles.header} ${!highlight ? styles.header__home : ''}`}>
@@ -23,8 +30,22 @@ export default function CardPost({ post, highlight }: CardPostProps) {
             <section className={styles.body}>
                 <h2>{post.title}</h2>
                 <p>{post.body}</p>
+                {
+                    showBtnDetails ?
+                        <Link className={styles.link} href={`/posts/${post.slug}`}>Ver detalhes</Link>
+                        :
+                        null
+                }
             </section>
             <footer className={styles.footer}>
+                <div>
+                    <form action={submitThumbsUp}>
+                       <ThumbsUpButton />
+                    </form>
+                    <p>
+                        {post.likes}
+                    </p>
+                </div>
                 <Avatar
                     imageSrc={post.author.avatar}
                     name={post.author.name}

@@ -61,6 +61,21 @@
     }
 }
 
+.link {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #81FE88;
+}
+
 .footer {
     padding: 16px;
+    display: flex;
+    justify-content: space-between;
+
+    p {
+        margin: 0;
+        color: #888;
+        font-size: 15px;
+        text-align: center;
+    }
 }

@@ -10,5 +10,6 @@ export type Post = {
         name: string,
         username: string,
         avatar: string
-    }
+    },
+    likes: number
 }

@@ -20,12 +20,13 @@ export default async function Home({ searchParams }: HomeProps) {
     <main className={styles.grid}>
       {
         posts.map(post => (
-          <Link href={`/posts/${post.slug}`} passHref className={styles.link}>
+          // <Link href={`/posts/${post.slug}`} passHref className={styles.link}>
             <CardPost
               key={post.id}
               post={post}
+              showBtnDetails={true}
             />
-          </Link>
+          // </Link>
         ))
       }
       <div className={styles.links}>

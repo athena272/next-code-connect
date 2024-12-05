@@ -12,7 +12,6 @@ type GetPostsResponse = {
     next?: number | null
 }
 
-
 export async function getAllPosts(page: number, searchTerm: string): Promise<GetPostsResponse> {
     try {
         const where: Prisma.PostWhereInput = {}

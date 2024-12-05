@@ -9,7 +9,7 @@ export default function ThumbsUpButton() {
     const { pending } = useFormStatus()
 
     return (
-        <IconButton>
+        <IconButton disabled={pending}>
             {
                 pending ? <Spinner /> : <ThumbsUp />
             }

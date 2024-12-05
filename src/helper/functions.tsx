@@ -37,7 +37,7 @@ export async function getAllPosts(page: number, searchTerm: string): Promise<Get
             skip,
             where,
             orderBy: {
-                createdAt: 'desc'
+                id: 'desc'
             },
             include: {
                 author: true

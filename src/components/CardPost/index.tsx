@@ -3,9 +3,8 @@ import Avatar from "../Avatar"
 import { Post } from "@/types/Post"
 import styles from './CardPost.module.scss'
 import Link from "next/link"
-import { IconButton } from "../IconButton"
-import ThumbsUp from "../icons/ThumbsUp"
 import incrementThumbsUp from "@/actions"
+import ThumbsUpButton from "./ThumbsUpButton"
 
 type CardPostProps = {
     post: Post,
@@ -41,9 +40,7 @@ export default function CardPost({ post, highlight, showBtnDetails }: CardPostPr
             <footer className={styles.footer}>
                 <div>
                     <form action={submitThumbsUp}>
-                        <IconButton>
-                            <ThumbsUp />
-                        </IconButton>
+                       <ThumbsUpButton />
                     </form>
                     <p>
                         {post.likes}

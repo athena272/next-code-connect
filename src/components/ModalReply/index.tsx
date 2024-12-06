@@ -29,7 +29,7 @@ export default function ModalReplay({ comment, post }: ModalReplayProps) {
     return (
         <>
             <Modal ref={modalRef}>
-                <form action={handleFormAction}>
+                <form action={handleFormAction} onSubmit={() => modalRef.current?.closeModal()}>
                     <div>
                         <Comment comment={comment} />
                     </div>

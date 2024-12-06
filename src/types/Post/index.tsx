@@ -1,3 +1,5 @@
+import { Comment } from "../Comment"
+
 export type Post = {
     id: number,
     cover: string,
@@ -11,5 +13,6 @@ export type Post = {
         username: string,
         avatar: string
     },
-    likes: number
+    likes: number,
+    comments?: Comment[] // Post has many comments
 }

@@ -16,9 +16,7 @@ export default function CommentList({ comments }: CommentListProps) {
                 {
                     comments.map(comment => (
                         <li key={comment.id}>
-                            <Comment
-                                comment={comment}
-                            />
+                            <Comment comment={comment} />
                             <ModalReplay comment={comment} />
                             <Replies comment={comment} />
                         </li>

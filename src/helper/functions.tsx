@@ -41,7 +41,21 @@ export async function getAllPosts(page: number, searchTerm: string): Promise<Get
             },
             include: {
                 author: true,
-                comments: true
+                comments: {
+                    include: {
+                        author: true,
+                        children: {
+                            include: {
+                                author: true,
+                                children: {
+                                    include: {
+                                        author: true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         })
 
@@ -76,14 +90,24 @@ export async function getPostsBySlug(slug: string): Promise<Post> {
                         children: {
                             include: {
                                 author: true,
+                                children: {
+                                    include: {
+                                        author: true,
+                                        children: {
+                                            include: {
+                                                author: true
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     },
                     where: {
                         parentId: null
                     }
-                },
-            }
+                }
+            },
         })
 
         if (!post) {

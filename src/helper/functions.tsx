@@ -44,7 +44,6 @@ export async function getAllPosts(page: number, searchTerm: string): Promise<Get
                 comments: true
             }
         })
-        console.log("🚀 ~ getAllPosts ~ posts:", posts)
 
         if (!posts || posts.length === 0) {
             logger.error(`Posts com o titulo ${searchTerm} não foram encontrados`)

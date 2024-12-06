@@ -12,6 +12,8 @@ type PagePostProps = {
 export default async function PagePost({ params }: PagePostProps) {
     const post = await getPostsBySlug(params.slug)
 
+    console.log("🚀 ~ PagePost ~ post.comments:", post.comments)
+
     if (!post) {
         return <div>Post não encontrado</div>;
     }
@@ -24,10 +26,7 @@ export default async function PagePost({ params }: PagePostProps) {
             <div className={styles.code}>
                 <div dangerouslySetInnerHTML={{ __html: post.markdown }} />
             </div>
-            <div>
-                <h2>Comentários</h2>
-                <CommentList comments={post.comments} />
-            </div>
+            <CommentList comments={post.comments} />
         </>
     )
 }

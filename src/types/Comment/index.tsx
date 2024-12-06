@@ -1,8 +1,6 @@
 export type Comment = {
     id: number;
     text: string;
-    createdAt: Date;
-    updatedAt: Date;
     author: {
         id: number;
         name: string;

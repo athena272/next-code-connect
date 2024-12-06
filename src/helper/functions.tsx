@@ -43,7 +43,6 @@ export async function getAllPosts(page: number, searchTerm: string): Promise<Get
                 comments: true
             }
         })
-        console.log("🚀 ~ getAllPosts ~ posts:", posts)
 
         if (!posts || posts.length === 0) {
             logger.error(`Posts com o titulo ${searchTerm} não foram encontrados`)
@@ -70,7 +69,19 @@ export async function getPostsBySlug(slug: string): Promise<Post> {
             },
             include: {
                 author: true,
-                comments: true,
+                comments: {
+                    include: {
+                        author: true,
+                        children: {
+                            include: {
+                                author: true,
+                            }
+                        }
+                    },
+                    where: {
+                        parentId: null
+                    }
+                },
             }
         })
 

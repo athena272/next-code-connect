@@ -22,12 +22,12 @@ export default function ModalComment({ action }: ModalCommentProps) {
                 <form action={action} onSubmit={() => modalRef.current?.closeModal()}>
                     <Subheading>Deixe seu comentário sobre o post:</Subheading>
                     <Textarea required rows={8} name="text" placeholder="Digite aqui..." />
+                    <div className={styles.footer}>
+                        <SubmitButton>
+                            Comentar
+                        </SubmitButton>
+                    </div>
                 </form>
-                <div className={styles.footer}>
-                    <SubmitButton>
-                        Comentar
-                    </SubmitButton>
-                </div>
             </Modal>
             <IconButton
                 onClick={() => modalRef.current?.openModal()}

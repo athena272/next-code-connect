@@ -73,6 +73,14 @@ export async function getPostsBySlug(slug: string): Promise<Post> {
                 comments: {
                     include: {
                         author: true,
+                        children: {
+                            include: {
+                                author: true,
+                            }
+                        }
+                    },
+                    where: {
+                        parentId: null
                     }
                 },
             }

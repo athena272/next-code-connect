@@ -1,6 +1,7 @@
 import { getAllPosts, getPostsBySlug } from '@/helper/functions';
 import styles from './PagePost.module.scss'
 import CardPost from '@/components/CardPost';
+import CommentList from '@/components/CommentList';
 
 type PagePostProps = {
     params: {
@@ -22,6 +23,10 @@ export default async function PagePost({ params }: PagePostProps) {
 
             <div className={styles.code}>
                 <div dangerouslySetInnerHTML={{ __html: post.markdown }} />
+            </div>
+            <div>
+                <h2>Comentários</h2>
+                <CommentList comments={post.comments} />
             </div>
         </>
     )

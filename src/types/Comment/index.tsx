@@ -9,5 +9,9 @@ export type Comment = {
     };
     postId: number;
     parentId?: number | null;
+    // Campos a mais retornados pelo Prisma
+    createdAt?: Date;
+    updatedAt?: Date;
+    authorId?: number;
     children: Comment[];
 };

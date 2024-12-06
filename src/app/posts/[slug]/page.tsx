@@ -12,7 +12,7 @@ type PagePostProps = {
 export default async function PagePost({ params }: PagePostProps) {
     const post = await getPostsBySlug(params.slug)
 
-    console.log("🚀 ~ PagePost ~ post.comments:", post.comments)
+    // console.log("🚀 ~ PagePost ~ post.comments:", post.comments)
 
     if (!post) {
         return <div>Post não encontrado</div>;

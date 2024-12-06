@@ -19,8 +19,8 @@ export default function CommentList({ comments }: CommentListProps) {
                             <Comment
                                 comment={comment}
                             />
-                            <ModalReplay comment={comment}/>
-                            <Replies />
+                            <ModalReplay comment={comment} />
+                            <Replies comment={comment} />
                         </li>
                     ))
                 }

@@ -3,8 +3,9 @@ import Avatar from "../Avatar"
 import { Post } from "@/types/Post"
 import styles from './CardPost.module.scss'
 import Link from "next/link"
-import incrementThumbsUp from "@/actions"
+import { incrementThumbsUp, postComment } from "@/actions"
 import ThumbsUpButton from "./ThumbsUpButton"
+import ModalComment from "../ModalComment"
 
 type CardPostProps = {
     post: Post,
@@ -15,6 +16,7 @@ type CardPostProps = {
 export default function CardPost({ post, highlight, showBtnDetails }: CardPostProps) {
 
     const submitThumbsUp = incrementThumbsUp.bind(null, post)
+    const submitComment = postComment.bind(null, post)
 
     return (
         <article className={styles.card} style={{ width: highlight ? 993 : 486 }}>
@@ -38,13 +40,21 @@ export default function CardPost({ post, highlight, showBtnDetails }: CardPostPr
                 }
             </section>
             <footer className={styles.footer}>
-                <div>
+                <div className={styles.actions}>
                     <form action={submitThumbsUp}>
-                       <ThumbsUpButton />
+                        <ThumbsUpButton />
+                        <p>
+                            {post.likes}
+                        </p>
                     </form>
-                    <p>
-                        {post.likes}
-                    </p>
+                    <div >
+                        <ModalComment action={submitComment}/>
+                        <p>
+                            {
+                                post.comments?.length
+                            }
+                        </p>
+                    </div>
                 </div>
                 <Avatar
                     imageSrc={post.author.avatar}

@@ -1,14 +1,13 @@
 import React from 'react'
 import styles from './IconButton.module.scss'
 
-type IconButtonProps = {
+type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     children?: React.ReactNode,
-    disabled?: boolean
 }
 
-export const IconButton = ({ children, disabled, ...rest }: IconButtonProps) => {
+export const IconButton = ({ children, ...rest }: IconButtonProps) => {
     return (
-        <button {...rest} className={styles.btn} disabled={disabled}>
+        <button {...rest} className={styles.btn}>
             {children}
         </button>
     )

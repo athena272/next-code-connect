@@ -14,5 +14,5 @@ export type Post = {
         avatar: string
     },
     likes: number,
-    comments?: Comment[] // Post has many comments
+    comments: Comment[] // Post has many comments
 }

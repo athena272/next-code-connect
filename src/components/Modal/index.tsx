@@ -15,11 +15,11 @@ export type ModalRef = {
 const Modal = forwardRef<ModalRef, ModalProps>(({ children }, ref) => {
     const dialogRef = useRef<HTMLDialogElement>(null)
 
-    const closeModal = () => {
+    function closeModal() {
         dialogRef.current?.close()
     }
 
-    const openModal = () => {
+    function openModal() {
         dialogRef.current?.showModal()
     }
 
